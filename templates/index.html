@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>주환 게시판</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+  <div class ="container">
+    <br>
+
+    <h1 class = "text-center"><a href="#">게시판</a></h1>
+    
+    <br>
+    <br>
+  <table class = "table table-hover table-striped text-center" style = "border: 1px solid;">
+    <thead>
+      <tr>
+          <th>번호</th>
+          <th>제목</th>
+          <th>글쓴이</th>
+          <th>조회수</th>
+
+      </tr>
+    </thead>
+    <tbody>
+          {% for i in data_list %}
+          <tr>
+              <td><a style="color:#110957;" href="/content/{{i[0]}}">{{ i[0]}}</a></td>
+              <td><a style="color:#110957;" href="/content/{{i[0]}}">{{ i[1] }}</a></td>
+              <td><a style="color:#110957;" href="/content/{{i[0]}}">{{ i[2] }}</a></td>
+              <td><a style="color:#110957;" href="/content/{{i[0]}}">{{ i[3] }}</a></td>
+              
+          </tr>
+          {% endfor %}
+    </tbody>
+  </table>
+
+  <div>
+    <ul class="pagination justify-content-center">
+        <li><a href="#" style = "margin-right: 5px ;" class = "text-secondary">◀ </a></li>
+        <li><a href="#" style = "margin-right: 5px ;" class = "text-secondary"> 1 </a></li>
+        <li><a href="#" style = "margin-right: 5px ;" class = "text-secondary"> 2 </a></li>
+        <li><a href="#" style = "margin-right: 5px ;" class = "text-secondary"> 3 </a></li>
+        <li><a href="#" style = "margin-right: 5px ;" class = "text-secondary"> 4 </a></li>
+        <li><a href="#" style = "margin-right: 5px ;" class = "text-secondary"> 5 </a></li>
+        <li><a href="#" style = "margin-right: 5px ;" class = "text-secondary"> ▶ </a></li>
+
+    </ul>
+  </div>
+    <form action="/write">
+        <button type = "submit" class = "btn btn-outline-info float-right"> 글쓰기 </button>
+    </form>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
