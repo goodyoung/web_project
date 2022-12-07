@@ -1,0 +1,7 @@
+{% extends "main.html"  %}
+{% block content %}
+
+{% for key, value in s.items() %}
+<p>{{key}}의 결과는 {{value}} 입니다.</p>
+{% endfor %}
+{% endblock %}

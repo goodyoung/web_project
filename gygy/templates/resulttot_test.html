@@ -1,0 +1,15 @@
+{% extends "main.html"  %}
+{% block content %}
+        <body>
+            <form action='/resulttot3' method='post'>
+                    <h1>투표 결과항목을 선택하시오</h1><br>
+                        {% for li in menu_list %}
+                            <input type="radio" name='select1' value={{li}}> {{li}} </input>
+                        {% endfor %}
+                    <input type='submit', value='제출'/>
+            </form>
+
+        </body>
+
+
+{% endblock %}
