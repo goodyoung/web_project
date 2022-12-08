@@ -1,9 +1,11 @@
 {% extends "main.html"  %}
 {% block content %}
+
         <body>
+            
             <form action='/menu' method='post'>
+                ​<p>이름 : <input type="text" name = 'name'></p>
                     <h1>투표항목을 선택하시오</h1><br>
-                    ​<p>이름 : <input type="text" name = 'name'></p>
                     <select name="vote">
                     <option value="" selected>투표할 항목을 선택하세요.</option>
                         {% for li in menu_list %}

@@ -1,0 +1,40 @@
+{% extends "main.html" %} <!-- 자식 태그 선언 -->
+<!DOCTYPE html>
+{% block content %}
+<html>
+
+<head>
+    <title> Thumbnail </title>
+    <meta charset="UTF-8">
+    <style>
+        .class {  
+            text-align: center;
+            font-size: 25px;
+            margin-top: 45vh;
+            margin-bottom: 45vh;
+        }
+        .class>span{
+            margin-right: 100px;
+            margin-left: 100px;
+        }
+        .class >span>a{
+            text-decoration: none;
+            color: gray;
+        }
+        .class >span>a:hover{
+            color: pink;
+            transition:200ms ease all;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="class">
+        <span><a href="/pro" > 건의하러 가기 </a></span>
+        <span><a href="/menu"> 투표하러 가기 </a></span>
+    </div>
+
+</body>
+</html>
+{% endblock %}
+

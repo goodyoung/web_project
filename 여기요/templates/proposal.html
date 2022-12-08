@@ -1,0 +1,27 @@
+{% extends "main.html" %} 
+<!DOCTYPE html>
+{% block content %}
+<html>
+<head>
+    <title>R eceive proposal </title>
+    <style>
+        .receive {
+            text-align:center;
+            margin-top: 45vh;
+            margin-bottom: 45vh;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class='receive'>
+        <form action='/addList' method='post'>
+            <p> 건의할 내용을 입력하세요. <br><br><input type='text' name='prop'></p>
+            <input type='submit',value='제출'/>
+        </form>
+    </div>
+</body>
+
+<html>
+{% endblock %}

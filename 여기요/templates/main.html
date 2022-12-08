@@ -1,0 +1,30 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <title> SeSac Vote Website </title>
+        <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+        <style>
+            .main {
+                text-align: center;
+            }
+            .main > a{
+                text-decoration: none;
+                color: gray;
+                text-align: center;
+            }
+            .main > a:hover{
+                color: pink;
+                transition:200ms ease all;
+            }
+        </style>
+    </head>
+
+    <body>
+        
+        <div class = main>
+            <a href='/'>메인 화면으로 돌아가기</a>    
+        </div>
+        {% block content %}{% endblock %} {#부모 태그 선언, 다른 파일에 {% extends "main.html" %} 선언하면 이 밑으로 들어옴 #}
+
+    </body>
+</html>
