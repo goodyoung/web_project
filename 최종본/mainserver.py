@@ -2,30 +2,22 @@ from flask import Flask, render_template, redirect, url_for, jsonify
 
 import sqlite3
 import pandas as pd
-from flask import request, session
+from flask import request
 from flask_admin import Admin
-from flask_admin.contrib.sqla import ModelView
-
-import database as dt
-from dbconnect import DBUpdater 
-
-dn = DBUpdater()
-conn = sqlite3.connect('./vote_base.db')
-cur = conn.cursor()
+import module.database as dt
 
 app = Flask(__name__)
+#메인
+###################################################################################
 @app.route('/')
 def main():
     return render_template('thumbnail.html')
-
-
-###################################################################################
-app.config
-app.config['FLASK_ADMIN_SWATCH'] = 'slate'
-admin = Admin(app, name='AdminPage', template_mode='bootstrap3')
-
 ###################################################################################
 
+#건의
+###################################################################################
+conn = sqlite3.connect('./vote_base.db')
+cur = conn.cursor()
 @app.route('/pro')
 def proposal():
     conn = sqlite3.connect('./vote_base.db')
@@ -44,7 +36,6 @@ def content(id):
     sql = f"SELECT * FROM board WHERE id = {id}"
     cur.execute(sql)
     data_list = cur.fetchall()
-    print(data_list)
     return render_template('content.html', data_list = data_list)
 
 @app.route('/write')
@@ -66,11 +57,20 @@ def write_action():
 def go_main() :
     return redirect(url_for("proposal"))
 
+@app.route('/format', methods=['GET'])
+def delete_community():
+    conn = sqlite3.connect('./vote_base.db')
+    cur = conn.cursor()
+    sql = "DELETE FROM board WHERE id >= 1"
+    cur.execute(sql)
+    conn.commit()
+    return render_template('board.html')
+
 ###################################################################################
 
-
+#투표
+###################################################################################
 @app.route('/addList', methods=['GET','POST'])
-
 def add():
     if request.method == 'POST':
         result = request.form.to_dict() 
@@ -85,7 +85,6 @@ def menu():
     #투표 항목을 불러온다.
     lis = dt.vote_name()
     if request.method == 'POST':
-        
         result = request.form.to_dict()
         user_id = dt.name_collect(result['name'])
         result_name, fo = dt.vote_item(result['vote'])
@@ -95,8 +94,8 @@ def menu():
         return redirect(url_for('index', result_name= result_name, user_id =fo))
     else:
         return render_template('menu.html', menu_list = lis) 
+    
 @app.route('/vote/<result_name>/<int:user_id>',methods=['GET','POST'])
-
 def index(result_name,user_id):
     # post로 받기 위해 tem를 index.html에 넘겨 form action을 실행 시키려고
     tem1,tem2 = result_name, user_id
@@ -107,11 +106,8 @@ def index(result_name,user_id):
         # user_id = dt.name_collect(result['name'])
         #user의 투표한 결과 값을 db에 저장한다.
         dt.user_vote(voteID,user_id,voteItemNum)
-
         return render_template("result.html")
-    
     else:
-        print('user_id입니당',user_id)
         tot_name = result_name[1:-1].replace('\'','').split(',')
         for k,i in enumerate(tot_name):
             tot_name[k] = i.strip()
@@ -123,7 +119,6 @@ def result3():
     lis = dt.vote_name()
     if request.method == 'POST':
     #투표 결과를 불러온다.
-        print(request.form.to_dict())
         select_name = request.form.to_dict()['vote']
         result_name, vote_item_id = dt.vote_item(select_name)
         
@@ -131,10 +126,31 @@ def result3():
         return render_template("resulttot.html", s = tem)
     else:
         return render_template('resulttot_test.html', menu_list = lis)   
- 
+###################################################################################
+
+#관리자
+###################################################################################
+@app.route('/admins')
+def admin():
+    return render_template('admin.html')
+
+@app.route('/admin/add')
+def admin_add():
+    return render_template('adminAdd.html')
+
+@app.route('/admin/add/result', methods =['GET','POST'])
+def hi():
+    if request.method == 'POST':
+        tt = request.form.to_dict()
+        print(tt['voteArticle'].split(','))
+        print(tt['userName'].split(','))
+
+        return render_template('rere.html')
+    else:
+        return render_template('adminAdd.html')
+###################################################################################
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',debug=True)
-
-
-    # admin.add_view(ModelView(User, db.session))
+    app.run(host='0.0.0.0',debug=True)    
+    
+    

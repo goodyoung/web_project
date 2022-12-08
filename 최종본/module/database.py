@@ -1,6 +1,6 @@
 import sqlite3
 import pandas as pd
-from dbconnect import DBUpdater
+from module.dbconnect import DBUpdater
 
 def vote_name():
     db = DBUpdater()
@@ -60,11 +60,6 @@ def vote_result(vote_item_id):
         tot_dict[i]= tot_result[i]
 
     return tot_dict
-
-def receiveProposal(proposal):
-    db = DBUpdater()
-    db.insert_value('listable', '건의', proposal)  
- 
         
         
     

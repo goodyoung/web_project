@@ -1,0 +1,116 @@
+{% extends "main.html" %}
+{% block content %}
+<head>
+    <style>
+        .class{
+            text-align:center;
+            margin-top: 20vh;
+            margin-bottom: 20vh;
+        }
+    </style>
+
+    <script>
+        voteName = []
+        voteArticle = []
+        userName = []
+
+        function onkeyPress1(event){
+            if(event.keyCode == 13) {
+                event.preventDefault()
+                console.log(document.querySelector("#inputValue").value)// 저장되는 값
+                inputValueChange1()
+                document.querySelector("#inputValue").value = ''
+            } 
+        }
+        function onKeyPress2(event){
+            if(event.keyCode == 13) {
+                event.preventDefault()
+                console.log(document.querySelector("#inputvotenum").value)// 저장되는 값
+                inputValueChange2()
+                document.querySelector("#inputvotenum").value = ''
+            } 
+        }
+        function onKeyPress3(event){
+            if(event.keyCode == 13) {
+                event.preventDefault()
+                console.log(document.querySelector("#voter").value)// 저장되는 값
+                inputValueChange3()
+                document.querySelector("#voter").value = ''
+            } 
+        }
+
+        function inputValueChange1(){
+            inputValue = document.getElementById('inputValue').value;
+            document.getElementById("test").innerHTML = inputValue
+            voteName.push(inputValue)
+        }
+
+        function inputValueChange2(){
+            inputvotenum = document.getElementById('inputvotenum').value;
+            document.getElementById("test2").innerHTML += inputvotenum + '<br/>'
+            voteArticle.push(inputvotenum)
+        }
+
+        function inputValueChange3(){
+            voter = document.getElementById('voter').value;
+            document.getElementById("test3").innerHTML += voter + '<br/>'
+            userName.push(voter)
+        }
+
+        function sendPost(url, params){
+            // console.log('난 여기에요',params)
+            let form = document.createElement('form');
+            form.setAttribute('method','post')
+            form.setAttribute('action',url)
+            document.charset = 'utf-8';
+            for (let key in params){
+                let hiddenField = document.createElement('input')
+                hiddenField.setAttribute('type','hidden');
+                hiddenField.setAttribute('name',key);
+                hiddenField.setAttribute('value',params[key]);
+                form.appendChild(hiddenField);
+            }
+            document.body.appendChild(form);
+            form.submit()
+        }
+
+        function returner(voteName, voteArticle, userNamez){
+            totalDict = {}
+            totalDict['voteName'] = voteName;
+            totalDict['voteArticle'] = voteArticle;
+            totalDict['userName'] = userName;
+
+            sendPost('/admin/add/result', totalDict)
+        }
+
+    </script>
+</head>
+
+<body>
+    <div class='class'>
+
+            <h3>투표 주제를 입력하세요.</h3>
+            <input type="text" name="inputValue" id="inputValue" onkeyPress="onkeyPress1(event)" />
+            <p id='test'></p>
+
+            <h3> 투표 항목을 입력하세요. </h3>
+            <input type="text" name="inputvotenum" id="inputvotenum" onkeyPress="onKeyPress2(event)" />
+            <p id='test2'></p>
+
+            <h3> 사용자 이름을 입력하세요. </h3>
+            <input type="text" name="voter" id="voter" onkeyPress="onKeyPress3(event)" />
+            <p id='test3'></p>
+
+            <button onclick='returner(voteName, voteArticle, userName)'> 버튼 </button>
+    </div>
+</body>
+{% endblock %}
+
+<!--<form action = '/admin/add/result' method='post'>
+</form>-->
+
+
+
+
+
+
