@@ -12,7 +12,7 @@
     <script>
         voteName = []
         voteArticle = []
-        userName = []
+/*        userName = [] */
 
         function onkeyPress1(event){
             if(event.keyCode == 13) {
@@ -30,14 +30,14 @@
                 document.querySelector("#inputvotenum").value = ''
             } 
         }
-        function onKeyPress3(event){
+/*        <!--<function onKeyPress3(event){
             if(event.keyCode == 13) {
                 event.preventDefault()
                 console.log(document.querySelector("#voter").value)// 저장되는 값
                 inputValueChange3()
                 document.querySelector("#voter").value = ''
             } 
-        }
+        }*/
 
         function inputValueChange1(){
             inputValue = document.getElementById('inputValue').value;
@@ -51,11 +51,11 @@
             voteArticle.push(inputvotenum)
         }
 
-        function inputValueChange3(){
+/*        <function inputValueChange3(){
             voter = document.getElementById('voter').value;
             document.getElementById("test3").innerHTML += voter + '<br/>'
             userName.push(voter)
-        }
+        }*/
 
         function sendPost(url, params){
             // console.log('난 여기에요',params)
@@ -74,12 +74,10 @@
             form.submit()
         }
 
-        function returner(voteName, voteArticle, userNamez){
+        function returner(voteName, voteArticle){
             totalDict = {}
             totalDict['voteName'] = voteName;
             totalDict['voteArticle'] = voteArticle;
-            totalDict['userName'] = userName;
-
             sendPost('/admin/add/result', totalDict)
         }
 
@@ -97,17 +95,21 @@
             <input type="text" name="inputvotenum" id="inputvotenum" onkeyPress="onKeyPress2(event)" />
             <p id='test2'></p>
 
-            <h3> 사용자 이름을 입력하세요. </h3>
-            <input type="text" name="voter" id="voter" onkeyPress="onKeyPress3(event)" />
-            <p id='test3'></p>
+        <!--<<h3> 사용자 이름을 입력하세요. </h3>
+        <input type="text" name="voter" id="voter" onkeyPress="onKeyPress3(event)" />
+        <p id='test3'></p>-->
 
-            <button onclick='returner(voteName, voteArticle, userName)'> 버튼 </button>
+            <button onclick='returner(voteName, voteArticle)'> 버튼 </button>
     </div>
 </body>
 {% endblock %}
 
 <!--<form action = '/admin/add/result' method='post'>
 </form>-->
+
+
+
+<!--returner에 값 부여 user_name-->
 
 
 

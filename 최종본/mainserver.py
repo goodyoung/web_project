@@ -52,10 +52,7 @@ def write_action():
     sql = f"INSERT INTO Board (title, writer, content) VALUES (\"{title}\", \"{writer}\", \"{content}\")"
     cur.execute(sql)
     conn.commit()
-    return go_main()     
-
-def go_main() :
-    return redirect(url_for("proposal"))
+    return redirect(url_for("proposal"))    
 
 @app.route('/format', methods=['GET'])
 def delete_community():
@@ -64,6 +61,13 @@ def delete_community():
     sql = "DELETE FROM board WHERE id >= 1"
     cur.execute(sql)
     conn.commit()
+    
+    sql = '''
+    UPDATE SQLITE_SEQUENCE SET seq = 0 WHERE name = 'Board' 
+    '''
+    cur.execute(sql)
+    conn.commit()
+    
     return render_template('board.html')
 
 ###################################################################################
@@ -85,13 +89,13 @@ def menu():
     #투표 항목을 불러온다.
     lis = dt.vote_name()
     if request.method == 'POST':
-        result = request.form.to_dict()
-        user_id = dt.name_collect(result['name'])
-        result_name, fo = dt.vote_item(result['vote'])
-        print('adfhadfh',result['name'])
-    #여기 좀 봐라 건영아
-        #fo는 버리는 변수
-        return redirect(url_for('index', result_name= result_name, user_id =fo))
+        try:
+            result = request.form.to_dict()
+            user_id = dt.name_collect(result['name'])
+            result_name, fo = dt.vote_item(result['vote'])
+            return redirect(url_for('index', result_name= result_name, user_id =user_id))
+        except:
+            return render_template('test.html', menu_list = lis)  
     else:
         return render_template('menu.html', menu_list = lis) 
     
@@ -113,7 +117,7 @@ def index(result_name,user_id):
             tot_name[k] = i.strip()
         return render_template('index.html', result_name = tot_name, test = tem1, ids = tem2)
 
-@app.route("/resulttot3",methods=['GET','POST'])
+@app.route("/resulttot",methods=['GET','POST'])
 def result3():
     #투표 항목을 불러온다.
     lis = dt.vote_name()
@@ -132,6 +136,7 @@ def result3():
 ###################################################################################
 @app.route('/admins')
 def admin():
+    
     return render_template('admin.html')
 
 @app.route('/admin/add')
@@ -142,9 +147,10 @@ def admin_add():
 def hi():
     if request.method == 'POST':
         tt = request.form.to_dict()
-        print(tt['voteArticle'].split(','))
-        print(tt['userName'].split(','))
-
+        votename = tt['voteName'].split(',')[0]
+        voteitem = tt['voteArticle'].split(',')
+        print(votename,voteitem)
+        dt.admin_vote(votename,voteitem)
         return render_template('rere.html')
     else:
         return render_template('adminAdd.html')
@@ -152,5 +158,4 @@ def hi():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',debug=True)    
-    
     

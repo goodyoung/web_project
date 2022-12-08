@@ -7,7 +7,7 @@ class DBUpdater:
         """생성자: SQLDB 연결 생성"""
         self.conn = sqlite3.connect('./vote_base.db')
         self.db_create()
-        self.tableList = ['User', 'VoteName', 'VoteItem', 'VoteResult',"Board"]
+        self.tableList = ['User', 'VoteName', 'VoteItem', 'VoteResult']
         # self.codes = {}
         # self.get_comp_info()
 
@@ -129,7 +129,6 @@ class DBUpdater:
                 vals = '\"'+ vals+'\"'
             print(vals)
             sql = f"INSERT INTO {table_name} ({cols}) VALUES ({vals})"
-            print(sql)
             self.conn.execute(sql)
             self.conn.commit()
 

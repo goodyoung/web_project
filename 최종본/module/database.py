@@ -13,9 +13,7 @@ def vote_item(vote_name):
     df_name = db.select_table('VoteName')
     df_vote_item = db.select_table('VoteItem')
     vote_item_id = df_name[df_name['Name'] == vote_name]['ID'].values[0]
-    result_name = df_vote_item[df_vote_item['VoteID'] == vote_item_id]['Name'].to_list()
-    print('난 여기 있어용요용용',vote_item_id)
-    
+    result_name = df_vote_item[df_vote_item['VoteID'] == vote_item_id]['Name'].to_list()    
     return result_name, vote_item_id
     
 def name_collect(user_name):
@@ -25,7 +23,7 @@ def name_collect(user_name):
     
     if len(df_name[ret1]) <=0:
         #유저 리스트에 포함이 안된 사람들
-        print('관리자의 허가가 필요합니다.')
+        print('이름 오류: 관리자의 허가가 필요합니다.')
         return 
     else:
         user_id = df_name.loc[df_name['Name'] ==user_name,'ID'].values[0]
@@ -60,6 +58,19 @@ def vote_result(vote_item_id):
         tot_dict[i]= tot_result[i]
 
     return tot_dict
-        
-        
+
+
+
+def admin_vote(votename,voteitem):
+    print('testtt',votename)
+    db = DBUpdater()
+    db.insert_VoteName(votename)
+    df_name = db.select_table('VoteName')
+    print('한다요한다요',df_name)
+    val = df_name[df_name['Name']==votename]['ID'].values[0]
+    print('asfㄴㅁㅇ호',val)
+    for item in voteitem:
+        num = len(db.select_table('VoteItem'))
+        db.insert_VoteItem(val, num, item)
+    
     
