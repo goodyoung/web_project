@@ -1,0 +1,25 @@
+{% extends "main.html" %} {% block content %}
+<div class="main_content">
+  <form action="/vote/{{test}}/{{ids}}" method="post">
+    <h1>선택항목을 클릭해주세요</h1>
+
+    <div class="opt_ls">
+      {% for li in result_name %}
+      <div>
+        <span class="zero"></span>
+        <input type="radio" id="{{li}}" name="items" value="{{li}}" />
+        <label for="{{li}}">{{li}}</label><br />
+      </div>
+      {% endfor %}
+    </div>
+
+    <input
+      type="submit"
+      value="제출"
+      class="circle"
+      onclick="alert('제출 완료했습니다.')"
+    />
+  </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+<!DOCTYPE >
+<html>
+  <head>
+    <title>SeSac Vote Website</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- font-family: 'Noto Sans KR', sans-serif; -->
+    <link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}" />
+    <!-- <link rel="stylesheet" href="../static/style.css" /> -->
+  </head>
+
+  <body>
+    <div class="main">
+      <a href="/">메인 화면으로 돌아가기</a>
+    </div>
+    {% block content %}{% endblock %}
+  </body>
+</html>
+
+
+<!-- {#부모 태그 선언, 다른 파일에 {% extends
+    "main.html" %} 선언하면 이 밑으로 들어옴 #}  -->

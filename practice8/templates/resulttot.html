@@ -1,0 +1,10 @@
+{% extends "main.html"  %}
+{% block content %}
+
+<div class='main_content' style='flex-direction: column;'>
+    <!-- <p>Key의 결과는 Value 입니다.</p> -->
+    {% for key, value in s.items() %}
+    <p>{{key}}의 결과는 {{value}} 입니다.</p><br><br>
+    {% endfor %}
+  </div>
+{% endblock %}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        tot = {}
+        val1 = [1,2,3,4,5,6]
+        val2 = [1,2,3,45,6,7,78]
+        val3 = [3,4,5,6,7,8,98]
+        function sendPost(url, params){
+            console.log('난 여기에요',params)
+            let form = document.createElement('form');
+            form.setAttribute('method','post')
+            form.setAttribute('action','/')      
+            document.charset = 'utf-8';
+            for (let key in params){
+                let hiddenField = document.createElement('input')
+                hiddenField.setAttribute('type','hidden');
+                hiddenField.setAttribute('name',key);
+                hiddenField.setAttribute('value',params[key]);
+                form.appendChild(hiddenField);
+            }
+            document.body.appendChild(form);
+            form.submit()
+        }
+
+        function returner(x,y,z){
+            tot['var1'] = x
+            tot['var2'] = y
+            tot['var3'] = z
+            
+            sendPost('/',tot)
+        }
+    </script>
+</head>
+
+<body>
+
+    <!-- <input type="button" onclick="sendPost('/',[['나는','여기다.'],['asg','dhs']])"> -->
+    <input type="button" onclick="returner(val1,val2,val3)">
+</body>
+</html>
