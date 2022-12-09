@@ -82,6 +82,21 @@
         }
 
     </script>
+    <style>
+        .class {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .class > .add_text {
+            background-color: rgb(31, 31, 32);
+            border-radius: 10px;
+            width: 50%;
+            text-align:center;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -89,17 +104,17 @@
 
             <h3>투표 주제를 입력하세요.</h3>
             <input type="text" name="inputValue" id="inputValue" onkeyPress="onkeyPress1(event)" />
-            <p id='test'></p>
+            <p id='test' class="add_text"></p>
 
             <h3> 투표 항목을 입력하세요. </h3>
             <input type="text" name="inputvotenum" id="inputvotenum" onkeyPress="onKeyPress2(event)" />
-            <p id='test2'></p>
+            <p id='test2' class="add_text"></p>
 
         <!--<<h3> 사용자 이름을 입력하세요. </h3>
         <input type="text" name="voter" id="voter" onkeyPress="onKeyPress3(event)" />
         <p id='test3'></p>-->
 
-            <button onclick='returner(voteName, voteArticle)'> 버튼 </button>
+            <button class="circle" onclick='returner(voteName, voteArticle)'> 버튼 </button>
     </div>
 </body>
 {% endblock %}

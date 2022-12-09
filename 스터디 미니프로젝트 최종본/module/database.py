@@ -60,17 +60,12 @@ def vote_result(vote_item_id):
     return tot_dict
 
 
-
 def admin_vote(votename,voteitem):
-    print('testtt',votename)
     db = DBUpdater()
     db.insert_VoteName(votename)
     df_name = db.select_table('VoteName')
-    print('한다요한다요',df_name)
     val = df_name[df_name['Name']==votename]['ID'].values[0]
-    print('asfㄴㅁㅇ호',val)
     for item in voteitem:
         num = len(db.select_table('VoteItem'))
         db.insert_VoteItem(val, num, item)
-    
     
